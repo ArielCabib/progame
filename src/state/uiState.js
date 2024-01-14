@@ -10,6 +10,7 @@ export const uiStore = create(
       clearFiles: () => set({ openFiles: [] }),
       addFileToOpenFiles: (file) =>
         set({ openFiles: [...new Set(get().openFiles.concat(file))] }),
+      closeFile: (file) => set({ openFiles: get().openFiles.filter(f => f !== file), editorTabIndex: get().openFiles.indexOf(file) - 1 }),
       setEditedFile: (file) => set({ editedFile: file, editorTabIndex: get().openFiles.indexOf(file) }),
       editedFile: null,
       editorTabIndex: 0,

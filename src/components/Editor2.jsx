@@ -1,12 +1,12 @@
 import { Editor } from "@monaco-editor/react";
-import { Box, Tab, Tabs } from "@mui/material";
-import { useState } from "react";
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import { Box, IconButton, Tab, Tabs } from "@mui/material";
 
 function Editor2({ store }) {
   const openFiles = store.uiStore((state) => state.openFiles);
   const editorTabIndex = store.uiStore((state) => state.editorTabIndex);
   const setEditorTabIndex = store.uiStore((state) => state.setEditorTabIndex);
-  const editedFile = store.uiStore((state) => state.editedFile);
+  const closeFile = store.uiStore((state) => state.closeFile);
 
   const setFileContents = store.playerStore((state) => state.setFileContents);
   const fileContents = store.playerStore((state) => state.fileContents);
@@ -18,26 +18,42 @@ function Editor2({ store }) {
           <h1>No files open...</h1>
         </div>
       ) : (
-        <div style={{height: '100%'}}>
+        <div style={{ height: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
               value={editorTabIndex}
               onChange={(event, newValue) => setEditorTabIndex(newValue)}
             >
               {openFiles.map((file) => (
-                <Tab label={file} key={file}/>
+                <Tab
+                  label={
+                    <span>
+                      <IconButton
+                        size="small"
+                        onClick={() => closeFile(file)}
+                      >
+                        <CancelOutlinedIcon fontSize="small" />
+                      </IconButton>{" "}
+                      {file}
+                    </span>
+                  }
+                  key={file}
+                />
               ))}
             </Tabs>
           </Box>
           {openFiles.map((file) => (
-            <div key={file} hidden={editorTabIndex !== openFiles.indexOf(file)} style={{height: '100%'}}>
+            <div
+              key={file}
+              hidden={editorTabIndex !== openFiles.indexOf(file)}
+              style={{ height: "100%" }}
+            >
               <Editor
                 theme="vs-dark"
                 height="100%"
                 defaultLanguage="javascript"
-                onChange={contents => setFileContents(file, contents)}
+                onChange={(contents) => setFileContents(file, contents)}
                 value={fileContents(file)}
-                
               />
             </div>
           ))}
