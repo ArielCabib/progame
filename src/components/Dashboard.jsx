@@ -12,12 +12,14 @@ function Dashboard({store}) {
     return (
         <div style={{height: '100vh'}}>
         Money: {money} <br />
-        Apples: {apples} <Button onClick={() => modApples(1)}>Add an apple</Button><br />
+        Apples: {apples} 
+        {/* <Button onClick={() => modApples(1)}>Add an apple</Button> */}
+        <br />
         Farms: {farms.join(', ')}<br />
         <br />
 
-        <TextField label="Farm Name" autoComplete="false" value={farmName} onChange={e => setFarmName(e.target.value)}/>
-        <Button onClick={() => addFarm(farmName)}>Add Farm</Button>
+        {/* <TextField label="Farm Name" autoComplete="false" value={farmName} onChange={e => setFarmName(e.target.value)}/> */}
+        {/* <Button onClick={() => addFarm(farmName)}>Add Farm</Button> */}
         </div>
     );
 }

@@ -7,6 +7,10 @@ import { persist } from 'zustand/middleware';
 
 const store = create(
   persist((set, get) => ({
+    reset: () => set({ money: 0, apples: 0, ownedFarms: [] }),
+    getSave: () => get(),
+    setSave: (save) => set(save),
+
     page: 'dashboard',
     setPage: (page) => set({ page: page }),
 
