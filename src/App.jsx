@@ -1,52 +1,49 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/tauri";
-import "./App.css";
+import './App.css';
+import Button from '@mui/material/Button';
+import { Grid } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Dashboard from './components/Dashboard';
+import Editor2 from './components/Editor2';
+import Terminal2 from './components/Terminal2';
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+
+function App({store}) {
+  const script = store((state) => state.script);
+  const setScript = store((state) => state.setScript);
+  const page = store((state) => state.page);
+  const setPage = store((state) => state.setPage);
+
+  const cowScript  = {
+    sleep: (ms) => new Promise(resolve => setTimeout(resolve, ms)),
+  };
 
   return (
-    <div className="container">
-      <h1>Welcome to Tauri!</h1>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <div className="App">
+      <Grid container spacing={2} style={{height: '100%'}}>
+        <Grid item xs={2}>
+          <h1>Cow Scripting</h1>
+          <Button onClick={() => setPage('dashboard')} width="100%">Dashboard</Button><br />
+          <Button onClick={() => setPage('editor')} width="100%">Editor</Button><br />
+          <Button onClick={() => setPage('terminal')} width="100%">Terminal</Button><br />
+        </Grid>
+        <Grid item xs={10}>
+          {page === 'dashboard' && <Dashboard store={store}/>}
+          {page === 'editor' && <Editor2 store={store} />}
+          {page === 'terminal' && <Terminal2 store={store} />}
+        </Grid>
+      </Grid>
+      
 
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-
-      <p>{greetMsg}</p>
-    </div>
+    </div></ThemeProvider>
   );
 }
 
