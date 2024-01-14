@@ -4,9 +4,9 @@ import { downloadDir, sep } from "@tauri-apps/api/path";
 import { writeFile, readTextFile } from "@tauri-apps/api/fs";
 
 function Options({ store }) {
-  const reset = store((state) => state.reset);
-  const getSave = store((state) => state.getSave);
-  const setSave = store((state) => state.setSave);
+  const reset = store.playerStore((state) => state.reset);
+  const getSave = store.playerStore((state) => state.getSave);
+  const setSave = store.playerStore((state) => state.setSave);
   const saveGame = async () => {
     const suggestedFilename = "save.json";
     const filePath = await save({
@@ -24,7 +24,7 @@ function Options({ store }) {
   };
 
   return (
-    <div>
+    <div style={{height: '100vh'}}>
       <h1>Options</h1>
       <Button onClick={reset}>Reset Game</Button>
       <Button onClick={saveGame}>Export Save</Button>

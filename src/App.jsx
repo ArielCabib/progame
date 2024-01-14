@@ -15,15 +15,10 @@ const theme = createTheme({
 });
 
 
-function App({store}) {
-  const script = store((state) => state.script);
-  const setScript = store((state) => state.setScript);
-  const page = store((state) => state.page);
-  const setPage = store((state) => state.setPage);
+function App({store, cowScript}) {
+  const page = store.uiStore((state) => state.page);
+  const setPage = store.uiStore((state) => state.setPage);
 
-  const cowScript  = {
-    sleep: (ms) => new Promise(resolve => setTimeout(resolve, ms)),
-  };
 
   return (
     <ThemeProvider theme={theme}>

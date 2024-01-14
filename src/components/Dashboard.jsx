@@ -2,11 +2,11 @@ import { Button, TextField } from "@mui/material";
 import { useState } from "react";
 
 function Dashboard({store}) {
-    const money = store((state) => state.money);
-    const apples = store((state) => state.apples);
-    const modApples = store((state) => state.modApples);
-    const farms = store((state) => state.ownedFarms);
-    const addFarm = store((state) => state.addFarm);
+    const money = store.playerStore((state) => state.money);
+    const apples = store.playerStore((state) => state.apples);
+    const modApples = store.playerStore((state) => state.modApples);
+    const farms = store.playerStore((state) => state.ownedFarms);
+    const addFarm = store.playerStore((state) => state.addFarm);
     const [farmName, setFarmName] = useState('');
 
     return (
