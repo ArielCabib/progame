@@ -16,6 +16,9 @@ const cowScript  = {
   sleep: (ms) => new Promise(resolve => setTimeout(resolve, ms)),
 };
 
+window.store = store;
+window.cowScript = cowScript;
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App store={store} cowScript={cowScript} />

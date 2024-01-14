@@ -7,6 +7,7 @@ function Options({ store }) {
   const reset = store.playerStore((state) => state.reset);
   const getSave = store.playerStore((state) => state.getSave);
   const setSave = store.playerStore((state) => state.setSave);
+  const clearFiles = store.uiStore((state) => state.clearFiles);
   const saveGame = async () => {
     const suggestedFilename = "save.json";
     const filePath = await save({
@@ -21,6 +22,7 @@ function Options({ store }) {
     });
     const file = await readTextFile(filePath);
     setSave(JSON.parse(file));
+    clearFiles();
   };
 
   return (
