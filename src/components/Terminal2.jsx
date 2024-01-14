@@ -47,13 +47,15 @@ function Terminal2({ store }) {
 
   const extensions = { run, code };
 
+  const structure = store.playerStore((state) => state.fileStructureForTerminal);
+
   return (
     <div style={{ display: "inline-block", height: "100vh", width: "100%" }}>
       <Terminal
         prefix=""
         theme={Terminal.Themes.DARK}
         extensions={extensions}
-        
+        structure={structure()}
       />
     </div>
   );

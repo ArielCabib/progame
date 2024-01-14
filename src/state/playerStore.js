@@ -15,6 +15,7 @@ export const playerStore = create(
         set({ files: newFiles });
       },
       fileContents: (file) => get().files[file],
+      fileStructureForTerminal: () => Object.fromEntries(Object.keys(get().files).map(file => [file, { content: get().files[file] }])),
 
       money: 0,
       modMoney: (amount) => set({ money: get().money + amount }),
